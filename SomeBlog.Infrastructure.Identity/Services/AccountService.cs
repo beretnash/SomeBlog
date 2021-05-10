@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using SomeBlog.Application.DataTransferObjects.Account;
@@ -36,9 +37,9 @@ namespace SomeBlog.Infrastructure.Identity.Services
             _emailService = emailService;
         }
 
-        public async Task<AuthenticationResult> LoginAsync(string email, string password)
+        public async Task<AuthenticationResult> LoginAsync(LoginRequest loginRequest)
         {
-            var user = await _userManager.FindByEmailAsync(email);
+            var user = await _userManager.FindByEmailAsync(loginRequest.Email);
 
             if (user == null)
             {
@@ -48,7 +49,7 @@ namespace SomeBlog.Infrastructure.Identity.Services
                 };
             }
 
-            var userHasValidPassword = await _userManager.CheckPasswordAsync(user, password);
+            var userHasValidPassword = await _userManager.CheckPasswordAsync(user, loginRequest.Password);
 
             if (!userHasValidPassword)
             {
@@ -61,9 +62,9 @@ namespace SomeBlog.Infrastructure.Identity.Services
             return await GenerateAuthResultForUser(user);
         }
 
-        public async Task<AuthenticationResult> RegisterAsync(string email, string password)
+        public async Task<AuthenticationResult> RegisterAsync(RegisterRequest registerRequest)
         {
-            var existingUser = await _userManager.FindByEmailAsync(email);
+            var existingUser = await _userManager.FindByEmailAsync(registerRequest.Email);
 
             if (existingUser != null)
             {
@@ -77,11 +78,11 @@ namespace SomeBlog.Infrastructure.Identity.Services
             var newUser = new ApplicationUser()
             {
                 Id = newUserId,
-                Email = email,
-                UserName = email
+                Email = registerRequest.Email,
+                UserName = registerRequest.Email
             };
 
-            var createdUser = await _userManager.CreateAsync(newUser, password);
+            var createdUser = await _userManager.CreateAsync(newUser, registerRequest.Password);
 
             if (!createdUser.Succeeded)
             {
@@ -96,9 +97,28 @@ namespace SomeBlog.Infrastructure.Identity.Services
             return await GenerateAuthResultForUser(newUser);
         }
 
-        public async Task<AuthenticationResult> RefreshTokenAsync(string token, string refreshToken)
+        public async Task<AuthenticationResult> ConfirmEmailAsync(ConfirmEmailRequest confirmEmailRequest)
         {
-            var validatedToken = GetPrincipalFromToken(token);
+            var user = await _userManager.FindByEmailAsync(confirmEmailRequest.Email);
+
+            confirmEmailRequest.Code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(confirmEmailRequest.Code));
+
+            var result = await _userManager.ConfirmEmailAsync(user, confirmEmailRequest.Code);
+
+            if (result.Succeeded == false)
+            {
+                return new AuthenticationResult()
+                {
+                    Errors = new[] { $"An error occured while confirming {user.Email}." }
+                };
+            }
+
+            return await GenerateAuthResultForUser(user);
+        }
+
+        public async Task<AuthenticationResult> RefreshTokenAsync(RefreshTokenRequest refreshTokenRequest)
+        {
+            var validatedToken = GetPrincipalFromToken(refreshTokenRequest.Token);
 
             if (validatedToken == null)
             {
@@ -120,7 +140,7 @@ namespace SomeBlog.Infrastructure.Identity.Services
 
             var jti = validatedToken.Claims.Single(t => t.Type == JwtRegisteredClaimNames.Jti).Value;
 
-            var storedRefreshToken = await _identityContext.RefreshTokens.SingleOrDefaultAsync(t => t.Token == refreshToken);
+            var storedRefreshToken = await _identityContext.RefreshTokens.SingleOrDefaultAsync(t => t.Token == refreshTokenRequest.RefreshToken);
 
             if (storedRefreshToken == null)
             {
@@ -156,7 +176,7 @@ namespace SomeBlog.Infrastructure.Identity.Services
             return await GenerateAuthResultForUser(user);
         }
 
-        public async Task ForgotPassword(ForgotPasswordRequest model, string origin)
+        public async Task ForgotPassword(ForgotPasswordRequest model)
         {
             var account = await _userManager.FindByEmailAsync(model.Email);
 
@@ -176,23 +196,33 @@ namespace SomeBlog.Infrastructure.Identity.Services
             await _emailService.SendEmailAsync(emailRequest);
         }
 
-        public async Task<Response<string>> ResetPassword(ResetPasswordRequest model)
+        public async Task<AuthenticationResult> ResetPassword(ResetPasswordRequest model)
         {
             var account = await _userManager.FindByEmailAsync(model.Email);
 
             if (account == null)
             {
-                throw new Exception($"No Accounts Registered with {model.Email}.");
+                return new AuthenticationResult()
+                {
+                    Errors = new[] { "User with this email already exists" }
+                };
             }
 
             var result = await _userManager.ResetPasswordAsync(account, model.Token, model.Password);
 
             if (result.Succeeded == false)
             {
-                throw new Exception("Error occured while reseting the password.");
+                return new AuthenticationResult()
+                {
+                    Errors = new[] { "Error occured while reseting the password." }
+                };
             }
 
-            return new Response<string>(model.Email, "Password Resetted.");
+            return new AuthenticationResult()
+            {
+                Data = model.Email,
+                Message = "Password Resetted."
+            };
         }
 
         private async Task<AuthenticationResult> GenerateAuthResultForUser(ApplicationUser user)

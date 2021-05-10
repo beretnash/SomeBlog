@@ -6,10 +6,11 @@ namespace SomeBlog.Application.Interfaces
 {
     public interface IAccountService
     {
-        public Task<AuthenticationResult> LoginAsync(string email, string password);
-        public Task<AuthenticationResult> RegisterAsync(string email, string password);
-        public Task<AuthenticationResult> RefreshTokenAsync(string token, string refreshToken);
-        public Task ForgotPassword(ForgotPasswordRequest model, string origin);
-        public Task<Response<string>> ResetPassword(ResetPasswordRequest model);
+        public Task<AuthenticationResult> LoginAsync(LoginRequest loginRequest);
+        public Task<AuthenticationResult> RegisterAsync(RegisterRequest registerRequest);
+        public Task<AuthenticationResult> ConfirmEmailAsync(ConfirmEmailRequest confirmEmailRequest);
+        public Task<AuthenticationResult> RefreshTokenAsync(RefreshTokenRequest refreshTokenRequest);
+        public Task ForgotPassword(ForgotPasswordRequest model);
+        public Task<AuthenticationResult> ResetPassword(ResetPasswordRequest model);
     }
 }

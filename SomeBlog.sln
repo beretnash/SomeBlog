@@ -5,17 +5,19 @@ VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SomeBlog.WebApi", "SomeBlog.WebApi\SomeBlog.WebApi.csproj", "{BE9CBD31-F7AE-4142-92F3-715173E9A54E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SomeBlog.Application", "SomeBlog.Application\SomeBlog.Application.csproj", "{F3CC243C-F3AA-40D1-8E75-FD4DA10A4E58}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SomeBlog.Application", "SomeBlog.Application\SomeBlog.Application.csproj", "{F3CC243C-F3AA-40D1-8E75-FD4DA10A4E58}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SomeBlog.Domain", "SomeBlog.Domain\SomeBlog.Domain.csproj", "{6F271469-BBF2-44D3-B277-2CAD840885D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SomeBlog.Domain", "SomeBlog.Domain\SomeBlog.Domain.csproj", "{6F271469-BBF2-44D3-B277-2CAD840885D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SomeBlog.Infrastructure.Identity", "SomeBlog.Infrastructure.Identity\SomeBlog.Infrastructure.Identity.csproj", "{C9CF663B-3DD1-4A3A-AA3E-258C357E6557}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SomeBlog.Infrastructure.Identity", "SomeBlog.Infrastructure.Identity\SomeBlog.Infrastructure.Identity.csproj", "{C9CF663B-3DD1-4A3A-AA3E-258C357E6557}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SomeBlog.Infrastructure.Persistence", "SomeBlog.Infrastructure.Persistence\SomeBlog.Infrastructure.Persistence.csproj", "{701EE605-A14A-4777-B286-F624E7A8FCE4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SomeBlog.Infrastructure.Persistence", "SomeBlog.Infrastructure.Persistence\SomeBlog.Infrastructure.Persistence.csproj", "{701EE605-A14A-4777-B286-F624E7A8FCE4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{6D750CB4-D973-47D3-A27B-4B1E6BB5D34B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{1C52E07F-545D-4E5D-8B59-A205D6F94CC4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SomeBlog.Infrastructure.Shared", "SomeBlog.Infrastructure.Shared\SomeBlog.Infrastructure.Shared.csproj", "{251EA464-C4E9-4FD2-8FC3-2E022ABF4E7B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +45,10 @@ Global
 		{701EE605-A14A-4777-B286-F624E7A8FCE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{701EE605-A14A-4777-B286-F624E7A8FCE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{701EE605-A14A-4777-B286-F624E7A8FCE4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{251EA464-C4E9-4FD2-8FC3-2E022ABF4E7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{251EA464-C4E9-4FD2-8FC3-2E022ABF4E7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{251EA464-C4E9-4FD2-8FC3-2E022ABF4E7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{251EA464-C4E9-4FD2-8FC3-2E022ABF4E7B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,6 +59,7 @@ Global
 		{6F271469-BBF2-44D3-B277-2CAD840885D7} = {6D750CB4-D973-47D3-A27B-4B1E6BB5D34B}
 		{C9CF663B-3DD1-4A3A-AA3E-258C357E6557} = {6D750CB4-D973-47D3-A27B-4B1E6BB5D34B}
 		{701EE605-A14A-4777-B286-F624E7A8FCE4} = {6D750CB4-D973-47D3-A27B-4B1E6BB5D34B}
+		{251EA464-C4E9-4FD2-8FC3-2E022ABF4E7B} = {6D750CB4-D973-47D3-A27B-4B1E6BB5D34B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {32BC4DF6-B38E-4786-BF8F-72421BE6B0F7}

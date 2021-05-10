@@ -15,7 +15,7 @@ namespace SomeBlog.Domain.Entities
         public DateTime Published { get; set; }
         public DateTime Modified { get; set; }
         public bool IsPublished { get; set; }
-        public Guid AuthorId { get; set; }
+        public string AuthorId { get; set; }
         public ICollection<Comment> Comments { get; set; }
         public ICollection<Category> Categories { get; set; }
     }

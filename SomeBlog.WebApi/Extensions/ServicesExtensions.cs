@@ -1,53 +1,12 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using SomeBlog.WebApi.Options;
 using System.Collections.Generic;
-using System.Text;
 
 namespace SomeBlog.WebApi.Extensions
 {
     public static class ServicesExtensions
     {
-        public static void AddJwtAuthorization(this IServiceCollection services, IConfiguration configuration)
-        {
-            var jwtSettings = new JwtSettings();
-            configuration.Bind(key: nameof(jwtSettings), jwtSettings);
-            services.AddSingleton(jwtSettings);
-
-            services.AddMvc(options =>
-            {
-                options.EnableEndpointRouting = false;
-            });
-
-            var tokenValidationParameters = new TokenValidationParameters
-            {
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtSettings.Secret)),
-                ValidateIssuer = false,
-                ValidateAudience = false,
-                RequireExpirationTime = false,
-                ValidateLifetime = true
-            };
-
-            services.AddSingleton(tokenValidationParameters);
-
-            services.AddAuthentication(configureOptions: t =>
-            {
-                t.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                t.DefaultScheme = JwtBearerDefaults.AuthenticationScheme; ;
-                t.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-                .AddJwtBearer(x =>
-                {
-                    x.SaveToken = true;
-                    x.TokenValidationParameters = tokenValidationParameters;
-                });
-        }
-
         public static void AddSwagger(this IServiceCollection services)
         {
             services.AddSwaggerGen(x =>

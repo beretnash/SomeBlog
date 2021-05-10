@@ -17,5 +17,11 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SomeBlog.Application\SomeBlog.Application.csproj" />
+    <ProjectReference Include="..\SomeBlog.Infrastructure.Identity\SomeBlog.Infrastructure.Identity.csproj" />
+    <ProjectReference Include="..\SomeBlog.Infrastructure.Persistence\SomeBlog.Infrastructure.Persistence.csproj" />
+  </ItemGroup>
+
 
 </Project>

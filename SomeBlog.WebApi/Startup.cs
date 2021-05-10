@@ -26,7 +26,8 @@ namespace SomeBlog.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddJwtAuthorization(Configuration);
-            services.AddSwagger(Configuration);
+            services.AddSwagger();
+            services.AddApiVersioningExtension();
             services.AddControllers();
         }
 

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -47,7 +48,7 @@ namespace SomeBlog.WebApi.Extensions
                 });
         }
 
-        public static void AddSwagger(this IServiceCollection services, IConfiguration configuration)
+        public static void AddSwagger(this IServiceCollection services)
         {
             services.AddSwaggerGen(x =>
             {
@@ -80,6 +81,16 @@ namespace SomeBlog.WebApi.Extensions
                         new List<string>()
                     }
                 });
+            });
+        }
+
+        public static void AddApiVersioningExtension(this IServiceCollection services)
+        {
+            services.AddApiVersioning(config =>
+            {
+                config.DefaultApiVersion = new ApiVersion(1, 0);
+                config.AssumeDefaultVersionWhenUnspecified = true;
+                config.ReportApiVersions = true;
             });
         }
     }

@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using SomeBlog.WebApi.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,8 @@ namespace SomeBlog.WebApi
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddJwtAuthorization(Configuration);
+            services.AddSwagger(Configuration);
             services.AddControllers();
         }
 
@@ -33,12 +36,15 @@ namespace SomeBlog.WebApi
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseHsts();
+            }
 
             app.UseHttpsRedirection();
-
             app.UseRouting();
-
             app.UseAuthorization();
+            app.UseSwaggerExtension(Configuration);
 
             app.UseEndpoints(endpoints =>
             {

@@ -3,7 +3,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using SomeBlog.Infrastructure.Identity;
+using SomeBlog.Infrastructure.Identity.DependencyInjection;
+using SomeBlog.Infrastructure.Persistence.DependencyInjection;
 using SomeBlog.WebApi.Extensions;
 
 namespace SomeBlog.WebApi
@@ -19,6 +20,8 @@ namespace SomeBlog.WebApi
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddPersistenceInfrastructure(Configuration);
+            services.AddIdentityContext(Configuration);
             services.AddJwtAuthorization(Configuration);
             services.AddSwagger();
             services.AddApiVersioningExtension();

@@ -1,14 +1,27 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using SomeBlog.Domain.Settings;
+using SomeBlog.Infrastructure.Identity.Models;
 using System.Text;
 
-namespace SomeBlog.Infrastructure.Identity
+namespace SomeBlog.Infrastructure.Identity.DependencyInjection
 {
     public static class ServicesExtensions
     {
+        public static void AddIdentityContext(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddDbContext<IdentityContext>(options =>
+                options.UseSqlServer(configuration.GetConnectionString("IdentityConnection")));
+
+            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<IdentityContext>();
+        }
+
         public static void AddJwtAuthorization(this IServiceCollection services, IConfiguration configuration)
         {
             var jwtSettings = new JwtSettings();

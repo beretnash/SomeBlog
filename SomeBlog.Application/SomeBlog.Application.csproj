@@ -6,7 +6,11 @@
 
   <ItemGroup>
     <Folder Include="Features\Commands\Categories\" />
-    <Folder Include="Features\Queries\" />
+    <Folder Include="Features\Queries\Categories\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SomeBlog.Domain\SomeBlog.Domain.csproj" />
   </ItemGroup>
 
 </Project>

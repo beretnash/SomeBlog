@@ -11,7 +11,7 @@
             PageSize = pageSize;
             Data = data;
             Message = null;
-            Succeeded = true;
+            Success = true;
             Errors = null;
         }
     }

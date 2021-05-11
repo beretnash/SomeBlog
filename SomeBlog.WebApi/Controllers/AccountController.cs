@@ -3,12 +3,12 @@ using SomeBlog.Application.DataTransferObjects.Account;
 using SomeBlog.Application.Interfaces;
 using System.Threading.Tasks;
 
-namespace SomeBlog.WebApi.Controllers.V1
+namespace SomeBlog.WebApi.Controllers
 {
     [ApiController]
     [Produces("application/json")]
     [Route("api/[controller]")]
-    public class AccountController : BaseApiController
+    public class AccountController : ControllerBase
     {
         private readonly IAccountService _accountService;
 

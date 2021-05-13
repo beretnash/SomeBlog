@@ -1,6 +1,6 @@
 ﻿namespace SomeBlog.Domain.Settings
 {
-    public class SendGridEmailSenderOptions
+    public class SendGridOptions
     {
         public string ApiKey { get; set; }
 

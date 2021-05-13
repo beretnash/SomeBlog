@@ -10,9 +10,9 @@ namespace SomeBlog.Infrastructure.Shared.Services
 {
     public class EmailService : IEmailService
     {
-        public SendGridEmailSenderOptions Options { get; set; }
+        public SendGridOptions Options { get; set; }
 
-        public EmailService(IOptions<SendGridEmailSenderOptions> options)
+        public EmailService(IOptions<SendGridOptions> options)
         {
             Options = options.Value;
         }

@@ -3,8 +3,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SomeBlog.Application.DependencyInjection;
 using SomeBlog.Infrastructure.Identity.DependencyInjection;
 using SomeBlog.Infrastructure.Persistence.DependencyInjection;
+using SomeBlog.Infrastructure.Shared.DependencyInjection;
 using SomeBlog.WebApi.Extensions;
 
 namespace SomeBlog.WebApi
@@ -20,9 +22,11 @@ namespace SomeBlog.WebApi
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSendGridEmailService(Configuration);
             services.AddPersistenceInfrastructure(Configuration);
-            services.AddIdentityContext(Configuration);
+            services.AddIdentityInfrastructure(Configuration);
             services.AddJwtAuthorization(Configuration);
+            services.AddApplicationLayer();
             services.AddSwagger();
             services.AddApiVersioningExtension();
             services.AddControllers();
@@ -41,6 +45,7 @@ namespace SomeBlog.WebApi
 
             app.UseHttpsRedirection();
             app.UseRouting();
+            app.UseAuthentication();
             app.UseAuthorization();
             app.UseSwaggerExtension(Configuration);
 

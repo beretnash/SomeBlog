@@ -11,6 +11,7 @@ namespace SomeBlog.Infrastructure.Shared.DependencyInjection
         public static void AddSendGridEmailService(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddTransient<IEmailService, EmailService>();
+
             services.Configure<SendGridOptions>(options =>
             {
                 options.ApiKey = configuration["SendGridOptions:ApiKey"];

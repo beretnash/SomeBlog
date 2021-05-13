@@ -27,14 +27,14 @@ namespace SomeBlog.Application.Features.Queries.Categories
 
         public async Task<Response<CategoryResponse>> Handle(GetCategoryByIdQuery query, CancellationToken cancellationToken)
         {
-            var story = await _categoriesRepositoryAsync.GetByIdAsync(query.Id);
+            var category = await _categoriesRepositoryAsync.GetByIdAsync(query.Id);
 
-            if (story == null)
+            if (category == null)
             {
                 throw new Exception($"Category not found");
             }
 
-            var storyViewModel = _mapper.Map<CategoryResponse>(story);
+            var storyViewModel = _mapper.Map<CategoryResponse>(category);
             return new Response<CategoryResponse>(storyViewModel);
         }
     }

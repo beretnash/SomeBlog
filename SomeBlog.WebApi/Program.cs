@@ -1,11 +1,5 @@
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SomeBlog.WebApi
 {
@@ -20,6 +14,7 @@ namespace SomeBlog.WebApi
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    webBuilder.UseWebRoot("wwwroot");
                     webBuilder.UseStartup<Startup>();
                 });
     }

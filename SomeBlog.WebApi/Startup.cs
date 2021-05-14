@@ -30,6 +30,7 @@ namespace SomeBlog.WebApi
             services.AddSwagger();
             services.AddApiVersioningExtension();
             services.AddControllers();
+            services.AddDirectoryBrowser();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

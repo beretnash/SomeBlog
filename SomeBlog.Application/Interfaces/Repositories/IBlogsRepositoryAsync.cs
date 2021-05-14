@@ -7,7 +7,10 @@ namespace SomeBlog.Application.Interfaces.Repositories
 {
     public interface IBlogsRepositoryAsync : IGenericRepositoryAsync<Blog>
     {
+        Task<Blog> GetByIdAndAuthorIdAsync(Guid id, string authorId);
         Task<Blog> GetBySlugAsync(string slug);
-        Task<IReadOnlyList<Blog>> GetAllByAuthorAsync(Guid authorId);
+        Task<IReadOnlyList<Blog>> GetAllByAuthorAsync(string authorId);
+        Task<IReadOnlyList<Blog>> GetAllPublishedPagedReponseAsync(int pageNumber, int pageSize);
+        Task<IReadOnlyList<Blog>> GetAllOwnPagedReponseAsync(int pageNumber, int pageSize, string authorId);
     }
 }

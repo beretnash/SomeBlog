@@ -29,10 +29,9 @@ namespace SomeBlog.Application.Features.Queries.Categories
 
         public async Task<PagedResponse<IEnumerable<CategoryResponse>>> Handle(GetAllCategoriesQuery request, CancellationToken cancellationToken)
         {
-            var validFilter = _mapper.Map<GetAllCategoriesFilter>(request);
-            var categories = await _categoriesRepositoryAsync.GetPagedReponseAsync(validFilter.PageNumber, validFilter.PageSize);
+            var categories = await _categoriesRepositoryAsync.GetAllPagedReponseAsync(request.PageNumber, request.PageSize);
             var categoryResponse = _mapper.Map<IEnumerable<CategoryResponse>>(categories);
-            return new PagedResponse<IEnumerable<CategoryResponse>>(categoryResponse, validFilter.PageNumber, validFilter.PageSize);
+            return new PagedResponse<IEnumerable<CategoryResponse>>(categoryResponse, request.PageNumber, request.PageSize);
         }
     }
 }

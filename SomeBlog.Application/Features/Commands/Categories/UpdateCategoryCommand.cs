@@ -4,6 +4,7 @@ using SomeBlog.Application.DataTransferObjects.Categories;
 using SomeBlog.Application.Interfaces.Repositories;
 using SomeBlog.Application.Wrappers;
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -11,7 +12,9 @@ namespace SomeBlog.Application.Features.Commands.Categories
 {
     public class UpdateCategoryCommand : IRequest<Response<CategoryResponse>>
     {
+        [Required]
         public Guid Id { get; set; }
+        [Required]
         public string Title { get; set; }
     }
 
@@ -39,13 +42,11 @@ namespace SomeBlog.Application.Features.Commands.Categories
             {
                 throw new Exception($"Category Not Found.");
             }
-            else
-            {
-                category.Title = command.Title;
-                await _categoriesRepositoryAsync.UpdateAsync(category);
-                var categoryResponse = _mapper.Map<CategoryResponse>(category);
-                return new Response<CategoryResponse>(categoryResponse);
-            }
+
+            category.Title = command.Title;
+            await _categoriesRepositoryAsync.UpdateAsync(category);
+            var categoryResponse = _mapper.Map<CategoryResponse>(category);
+            return new Response<CategoryResponse>(categoryResponse);
         }
     }
 }

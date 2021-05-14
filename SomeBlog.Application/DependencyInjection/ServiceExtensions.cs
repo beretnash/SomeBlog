@@ -1,5 +1,7 @@
 ﻿using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using SomeBlog.Application.Interfaces;
+using SomeBlog.Application.Providers;
 using System.Reflection;
 
 namespace SomeBlog.Application.DependencyInjection
@@ -10,6 +12,7 @@ namespace SomeBlog.Application.DependencyInjection
         {
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddMediatR(Assembly.GetExecutingAssembly());
+            services.AddScoped<IImageProvider, ImageProvider>();
         }
     }
 }

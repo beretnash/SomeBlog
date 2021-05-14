@@ -5,6 +5,7 @@ using SomeBlog.Application.Interfaces.Repositories;
 using SomeBlog.Application.Wrappers;
 using SomeBlog.Domain.Entities;
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -12,6 +13,7 @@ namespace SomeBlog.Application.Features.Commands.Categories
 {
     public class CreateCategoryCommand : IRequest<Response<CategoryResponse>>
     {
+        [Required]
         public string Title { get; set; }
     }
 

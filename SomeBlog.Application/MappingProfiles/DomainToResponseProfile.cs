@@ -12,8 +12,8 @@ namespace SomeBlog.Application.MappingProfiles
         {
             CreateMap<Category, CategoryResponse>();
             CreateMap<Comment, CommentResponse>();
-            CreateMap<Blog, GetAllBlogsResponse>();
-            CreateMap<Blog, GetBlogBySlugResponse>();
+            CreateMap<Blog, BlogResponse>();
+            CreateMap<Blog, GetAllPublishedBlogsResponse>();
         }
     }
 }

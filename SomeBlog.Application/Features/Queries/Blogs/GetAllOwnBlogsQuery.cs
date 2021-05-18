@@ -30,7 +30,7 @@ namespace SomeBlog.Application.Features.Queries.Blogs
 
         public async Task<PagedResponse<IEnumerable<GetAllPublishedBlogsResponse>>> Handle(GetAllOwnBlogsQuery request, CancellationToken cancellationToken)
         {
-            var blogs = await _blogsRepositoryAsync.GetAllOwnPagedReponseAsync(request.PageNumber, request.PageSize, request.AuthorId);
+            var blogs = await _blogsRepositoryAsync.GetAllMinePagedReponseAsync(request.PageNumber, request.PageSize, request.AuthorId);
             var blogResponse = _mapper.Map<IEnumerable<GetAllPublishedBlogsResponse>>(blogs);
             return new PagedResponse<IEnumerable<GetAllPublishedBlogsResponse>>(blogResponse, request.PageNumber, request.PageSize);
         }

@@ -63,7 +63,7 @@ namespace SomeBlog.Infrastructure.Persistence.Repositories
                 .ToListAsync();
         }
 
-        public async Task<IReadOnlyList<Blog>> GetAllOwnPagedReponseAsync(int pageNumber, int pageSize, string authorId)
+        public async Task<IReadOnlyList<Blog>> GetAllMinePagedReponseAsync(int pageNumber, int pageSize, string authorId)
         {
             return await _dbContext.Blogs
                 .Where(p => p.AuthorId == authorId)

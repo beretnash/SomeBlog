@@ -11,6 +11,6 @@ namespace SomeBlog.Application.Interfaces.Repositories
         Task<Blog> GetBySlugAsync(string slug);
         Task<IReadOnlyList<Blog>> GetAllByAuthorAsync(string authorId);
         Task<IReadOnlyList<Blog>> GetAllPublishedPagedReponseAsync(int pageNumber, int pageSize);
-        Task<IReadOnlyList<Blog>> GetAllOwnPagedReponseAsync(int pageNumber, int pageSize, string authorId);
+        Task<IReadOnlyList<Blog>> GetAllMinePagedReponseAsync(int pageNumber, int pageSize, string authorId);
     }
 }

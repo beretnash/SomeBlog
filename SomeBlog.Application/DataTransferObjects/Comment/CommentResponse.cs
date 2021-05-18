@@ -8,5 +8,6 @@ namespace SomeBlog.Application.DataTransferObjects.Comment
         public string Content { get; set; }
         public DateTime Modified { get; set; }
         public string AuthorId { get; set; }
+        public string BlogId { get; set; }
     }
 }

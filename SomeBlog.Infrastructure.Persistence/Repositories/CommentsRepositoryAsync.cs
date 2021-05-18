@@ -17,5 +17,14 @@ namespace SomeBlog.Infrastructure.Persistence.Repositories
                 .Where(p => p.BlogId.ToString() == blogId)
                 .ToListAsync();
         }
+        public async Task<IReadOnlyList<Comment>> GetAllByBlogIdPagedReponseAsync(int pageNumber, int pageSize, string blogId)
+        {
+            return await _dbContext.Comments
+                .Where(p => p.BlogId.ToString() == blogId)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .AsNoTracking()
+                .ToListAsync();
+        }
     }
 }

@@ -34,8 +34,8 @@ namespace SomeBlog.Application.Features.Queries.Categories
                 throw new Exception($"Category not found");
             }
 
-            var storyViewModel = _mapper.Map<CategoryResponse>(category);
-            return new Response<CategoryResponse>(storyViewModel);
+            var categoryResponse = _mapper.Map<CategoryResponse>(category);
+            return new Response<CategoryResponse>(categoryResponse);
         }
     }
 }
